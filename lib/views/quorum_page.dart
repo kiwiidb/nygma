@@ -39,6 +39,17 @@ class QuorumPage extends StatelessWidget {
                               padding: const EdgeInsets.all(12.0),
                               child: GetX<ContactPageController>(
                                   builder: (controller) {
+                                var widgets = <Widget>[];
+                                controller.selectedContacts
+                                    .forEach(((key, value) {
+                                  widgets.add(ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: Image.network(
+                                      value.picture,
+                                      width: 50,
+                                    ),
+                                  ));
+                                }));
                                 return Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -109,6 +120,9 @@ class QuorumPage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
+              Row(
+                children: [],
+              ),
               SizedBox(
                 width: 350,
                 child: LabeledTextFormField(
@@ -130,7 +144,7 @@ class QuorumPage extends StatelessWidget {
                     nostrControlller.sendShares();
                   },
                   child: const Text(
-                    'Send it',
+                    'Share',
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.white,
