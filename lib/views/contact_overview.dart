@@ -73,7 +73,7 @@ class ContactOverView extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 500,
+              height: 600,
               child: ListView.separated(
                   shrinkWrap: true,
                   primary: false,
