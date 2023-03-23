@@ -126,7 +126,7 @@ class ContactWidget extends StatelessWidget {
     }
     return AppCard(
       padding: const EdgeInsets.fromLTRB(23.0, 16.0, 23.0, 15.0),
-      background: selected ? kBlackColor : kOffGreyColor,
+      background: selected ? kAccentColor : kOffGreyColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

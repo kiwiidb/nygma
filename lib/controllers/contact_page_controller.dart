@@ -50,7 +50,7 @@ class ContactPageController extends GetxController {
     return selectedContacts.containsKey(c.pubkey);
   }
 
-  Future<void> toggleSelected(Profile c) async {
+  void toggleSelected(Profile c) {
     if (selectedContacts.containsKey(c.pubkey)) {
       selectedContacts.remove(c.pubkey);
     } else {
