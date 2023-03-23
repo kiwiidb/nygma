@@ -78,7 +78,7 @@ class RecoverPage extends StatelessWidget {
                     height: 50,
                   ),
                   SizedBox(
-                    height: 500,
+                    height: 320,
                     child: ListView.separated(
                       itemBuilder: (context, i) {
                         return LabeledTextFormField(
@@ -94,7 +94,7 @@ class RecoverPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 50,
                   ),
                   SizedBox(
                     width: double.infinity,

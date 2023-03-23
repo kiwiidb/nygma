@@ -120,14 +120,6 @@ class NostrControlller extends GetxController {
             contactPageController.storeContact(prf);
           }
         }
-        if (parsedMsg.kind == 23195) {
-          Get.snackbar("Succesfully sent payment!", "🚀",
-              snackPosition: SnackPosition.TOP);
-        }
-        if (parsedMsg.kind == 23196) {
-          Get.snackbar("Error sending payment", "😥",
-              snackPosition: SnackPosition.TOP);
-        }
       }
     });
   }

@@ -26,7 +26,7 @@ class LoginChoicePage extends StatelessWidget {
                   height: 60,
                   child: GradientButton(
                     onPressed: () {
-                      Get.to(IndexOrLogin());
+                      Get.offAll(IndexOrLogin());
                     },
                     child: const Text(
                       'Login',
