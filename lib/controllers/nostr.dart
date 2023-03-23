@@ -133,15 +133,14 @@ class NostrControlller extends GetxController {
   }
 
   void sendShares() async {
+    var selection = contactPageController.selectedContacts;
     var result = shamirController.calculateShares(
         contactPageController.quorum.value,
-        contactPageController.selectedContacts.length,
+        selection.length,
         authController.keychain.private);
-    print(result);
-    for (String share in result) {
-      // for (nostr_models.Profile contact
-      //     in contactPageController.selectedContacts.values) {
-      //   sendDM("test", contact.pubkey!);
+    for (var i = 0; i < result.length; i++) {
+      var recipientKey = selection.keys.elementAt(i);
+      sendDM(result[i], recipientKey);
     }
   }
 
