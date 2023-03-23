@@ -12,6 +12,16 @@ class RecoverPageController extends GetxController {
     shardControllerList.add(TextEditingController());
   }
 
+  List<String> getShares() {
+    List<String> stringList = [];
+
+    for (var controller in shardControllerList) {
+      stringList.add(controller.text);
+    }
+
+    return stringList;
+  }
+
   void removeShare() {
     if (shardControllerList.length != 1) {
       shardControllerList.removeLast();

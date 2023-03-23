@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nygma/app_theme.dart';
+import 'package:nygma/controllers/auth_controller.dart';
+import 'package:nygma/controllers/shamir_controller.dart';
 
 import '../components/buttons/gradient_button.dart';
 import '../components/labeled_text_form_field.dart';
@@ -13,6 +15,8 @@ class RecoverPage extends StatelessWidget {
   RecoverPage({super.key});
 
   final RecoverPageController controller = Get.put(RecoverPageController());
+  final ShamirController shamirController = Get.put(ShamirController());
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +100,9 @@ class RecoverPage extends StatelessWidget {
                     height: 60,
                     child: GradientButton(
                       onPressed: () {
-                        //todo
+                        var secret = shamirController
+                            .combineShares(controller.getShares());
+                        authController.loginHex(secret);
                       },
                       child: const Text(
                         'Recover',

@@ -40,8 +40,8 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(height: 50.0),
                           GradientButton(
                             onPressed: () {
-                              authController
-                                  .login(authController.privkeyController.text);
+                              authController.loginNsec(
+                                  authController.privkeyController.text);
                             },
                             text: "continue".tr,
                           ),
