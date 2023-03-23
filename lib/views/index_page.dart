@@ -18,11 +18,22 @@ class IndexPage extends StatelessWidget {
         child: Scaffold(
           extendBody: true,
           appBar: AppBar(
-            title: const Text(
+              title: Row(children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: Image.asset(
+                'images/icon.png',
+                height: 50,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
               "Nygma",
               style: TextStyle(fontSize: 20),
-            ),
-          ),
+            )
+          ])),
           body: PageView.builder(
             onPageChanged: (page) {
               wrapperController.onItemTapped(page);

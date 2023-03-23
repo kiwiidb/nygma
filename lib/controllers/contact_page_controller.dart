@@ -18,9 +18,15 @@ class ContactPageController extends GetxController {
   GetStorage contactBox = GetStorage('contacts');
   final TextEditingController searchLNAddressController =
       TextEditingController();
+  final TextEditingController dmController = TextEditingController();
 
   @override
   void onInit() async {
+    dmController.text = '''Hello fellow nostrich. I have chosen you to be part
+of my most trusted circle. If you would be so kind to
+be the guardian of one of my backup shards, you can find
+it in the next message. Please send it to me in case I contact
+you and you are sure it is me.''';
     searchLNAddressController.addListener(
       () {
         if (searchLNAddressController.text == "") {

@@ -44,7 +44,10 @@ class LabeledTextFormField extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 13.0),
             child: Text(
               label!,
-              style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

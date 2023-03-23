@@ -13,6 +13,24 @@ class LoginChoicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Row(children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: Image.asset(
+                'images/icon.png',
+                height: 50,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
+              "Nygma",
+              style: TextStyle(fontSize: 20),
+            )
+          ]),
+          actions: []),
       body: DecoratedBox(
         decoration: const BoxDecoration(gradient: kBgGradient),
         child: Center(

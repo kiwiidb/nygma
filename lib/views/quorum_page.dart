@@ -27,7 +27,7 @@ class QuorumPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 100,
+                height: 60,
               ),
               SizedBox(
                   height: 60,
@@ -108,7 +108,20 @@ class QuorumPage extends StatelessWidget {
                 ),
               ]),
               const SizedBox(
-                height: 60,
+                height: 30,
+              ),
+              SizedBox(
+                width: 350,
+                child: LabeledTextFormField(
+                  controller: controller.dmController,
+                  label: 'Personal message'.tr,
+                  maxLines: 10,
+                  keyboardType: TextInputType.multiline,
+                  borderRadius: 10.0,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
               ),
               SizedBox(
                 width: 200,
