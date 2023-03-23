@@ -16,7 +16,6 @@ class LoginPage extends StatelessWidget {
       decoration: const BoxDecoration(gradient: kBgGradient),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
           title: const Text('Login', style: TextStyle(fontSize: 20.0)),
         ),
         body: GetX<AuthController>(builder: (controller) {

@@ -15,7 +15,6 @@ class AppTheme {
         secondary: kAccentColor,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent,
         elevation: 0.0,
         centerTitle: false,
         titleTextStyle: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
