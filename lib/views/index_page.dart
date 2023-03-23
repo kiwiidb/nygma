@@ -19,14 +19,10 @@ class IndexPage extends StatelessWidget {
         builder: (s) => Scaffold(
           extendBody: true,
           appBar: AppBar(
-            title: TextButton(
-              child: Text(
-                s.currentDisplayString.value,
-                style: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () => {s.switchDisplay()},
+            title: const Text(
+              "Nygma",
+              style: TextStyle(fontSize: 20),
             ),
-            actions: [],
           ),
           body: PageView.builder(
             onPageChanged: (page) {

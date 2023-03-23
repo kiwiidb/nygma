@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:dart_bech32/dart_bech32.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,6 +38,14 @@ class AuthController extends GetxController with WidgetsBindingObserver {
       keychain = Keychain(privkeyhex);
     }
     super.onInit();
+  }
+
+  void copyNsec() async {
+    var privkeyBytes = hex.decode(keychain.private);
+    var nsec = bech32.encode(Decoded(
+        prefix: "nsec",
+        words: bech32.toWords(Uint8List.fromList(privkeyBytes))));
+    await Clipboard.setData(ClipboardData(text: nsec));
   }
 
   void login(String nsec) async {

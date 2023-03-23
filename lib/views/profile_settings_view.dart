@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:nygma/components/buttons/gradient_button.dart';
 
 import '../components/labeled_text_form_field.dart';
 import '../constants/app_constants.dart';
 import '../constants/colors.dart';
 import '../controllers/auth_controller.dart';
+import 'package:flutter/services.dart';
 
 class ProfileSettingsView extends StatelessWidget {
   ProfileSettingsView({super.key});
 
+  final AuthController controller = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -21,75 +24,40 @@ class ProfileSettingsView extends StatelessWidget {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: AppConstants.contentPadding,
-              child: GetX<AuthController>(builder: (controller) {
-                var contact = controller.profile.value;
-                if (contact.name == null ||
-                    contact.lud16 == null ||
-                    contact.pubkey == null) {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("Fetching profile.."),
-                  );
-                }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Profile & Settings',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: AppConstants.contentPadding,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            contact.picture,
-                            width: 100,
+                        const Text(
+                          'Account keys',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                contact.name!,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "⚡ ${extractHost(contact.lud16!)} ",
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
+                        const SizedBox(
+                          height: 50,
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30.0),
-                      child: Text(
-                        "${controller.npub.value.substring(0, 14)}..",
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ],
-                );
-              }),
-            ),
+                        Text(
+                          "${controller.npub.value.substring(0, 16)}...",
+                          style: const TextStyle(fontSize: 21),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        SizedBox(
+                          width: 150,
+                          child: GradientButton(
+                            onPressed: () async {
+                              controller.copyNsec();
+                            },
+                            child: const Text("Copy private key"),
+                          ),
+                        )
+                      ]),
+                )),
           ),
         ],
       ),
