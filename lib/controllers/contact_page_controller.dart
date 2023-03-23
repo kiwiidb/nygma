@@ -11,6 +11,7 @@ import '../models/nostr_profile.dart';
 class ContactPageController extends GetxController {
   var contacts = <String, Profile>{}.obs;
   var shownContacts = <String, Profile>{}.obs;
+  var selectedContacts = <String, Profile>{}.obs;
   GetStorage contactBox = GetStorage('contacts');
   final TextEditingController searchLNAddressController =
       TextEditingController();
@@ -38,6 +39,22 @@ class ContactPageController extends GetxController {
       contacts[key] = Profile.fromJson(cJson);
       shownContacts[key] = Profile.fromJson(cJson);
     }
+  }
+
+  bool isSelected(Profile c) {
+    return selectedContacts.containsKey(c.pubkey);
+  }
+
+  Future<void> toggleSelected(Profile c) async {
+    if (selectedContacts.containsKey(c.pubkey)) {
+      selectedContacts.remove(c.pubkey);
+    } else {
+      selectedContacts[c.pubkey!] = c;
+    }
+  }
+
+  int numberSelected() {
+    return selectedContacts.length;
   }
 
   Future<void> storeContact(Profile c) async {

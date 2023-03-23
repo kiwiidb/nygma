@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nygma/constants/colors.dart';
 import 'package:nygma/controllers/nostr.dart';
 
+import '../components/buttons/gradient_button.dart';
 import '../components/cards/app_card.dart';
 import '../components/labeled_text_form_field.dart';
 import '../controllers/contact_page_controller.dart';
 import '../models/nostr_profile.dart';
+import 'index_or_login.dart';
 
 class ContactOverView extends StatelessWidget {
   final NostrControlller nostrControlller = Get.put(NostrControlller());
@@ -31,8 +34,40 @@ class ContactOverView extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
+                  child: Text(
+                    "Contact(s) selected: ${controller.numberSelected()}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
+                  child: SizedBox(
+                    width: 120,
+                    height: 40,
+                    child: GradientButton(
+                      onPressed: () {
+                        Get.offAll(IndexOrLogin());
+                      },
+                      child: const Text(
+                        'Backup',
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
-              height: 700,
+              height: 500,
               child: ListView.separated(
                   shrinkWrap: true,
                   primary: false,
@@ -49,9 +84,12 @@ class ContactOverView extends StatelessWidget {
                     Profile contact = controller.contacts[key]!;
                     return InkWell(
                       onTap: () {
-                        Get.snackbar("Todo", 'todo');
+                        controller.toggleSelected(contact);
                       },
-                      child: ContactWidget(contact: contact, width: width),
+                      child: ContactWidget(
+                          contact: contact,
+                          width: width,
+                          selected: controller.isSelected(contact)),
                     );
                   }),
             ),
@@ -67,10 +105,12 @@ class ContactWidget extends StatelessWidget {
     super.key,
     required this.contact,
     required this.width,
+    required this.selected,
   });
 
   final Profile contact;
   final double width;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +120,7 @@ class ContactWidget extends StatelessWidget {
     }
     return AppCard(
       padding: const EdgeInsets.fromLTRB(23.0, 16.0, 23.0, 15.0),
+      background: selected ? kBlackColor : kOffGreyColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -117,7 +158,6 @@ class ContactWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16.0),
-          maybeArrow,
         ],
       ),
     );

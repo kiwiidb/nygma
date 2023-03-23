@@ -7,11 +7,13 @@ class AppCard extends StatelessWidget {
       this.padding = const EdgeInsets.fromLTRB(30.0, 20.0, 24.0, 30.0),
       this.margin,
       this.radius = 20.0,
-      this.child});
+      this.child,
+      required this.background});
 
   final EdgeInsetsGeometry? padding, margin;
   final Widget? child;
   final double radius;
+  final Color background;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class AppCard extends StatelessWidget {
       padding: padding,
       margin: margin,
       decoration: BoxDecoration(
-        color: kOffGreyColor,
+        color: background,
         borderRadius: BorderRadius.all(Radius.circular(radius)),
       ),
       child: child,
