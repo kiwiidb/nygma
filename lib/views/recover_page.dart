@@ -54,9 +54,9 @@ class RecoverPage extends StatelessWidget {
                                 width: 50,
                                 child: GradientButton(
                                   onPressed: () {
-                                    controller.addShare();
+                                    controller.removeShare();
                                   },
-                                  child: const Icon(Icons.add),
+                                  child: const Icon(Icons.remove),
                                 ),
                               ),
                               const SizedBox(
@@ -66,11 +66,11 @@ class RecoverPage extends StatelessWidget {
                                 width: 50,
                                 child: GradientButton(
                                   onPressed: () {
-                                    controller.removeShare();
+                                    controller.addShare();
                                   },
-                                  child: const Icon(Icons.remove),
+                                  child: const Icon(Icons.add),
                                 ),
-                              )
+                              ),
                             ])
                           ])),
                   const SizedBox(
