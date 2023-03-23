@@ -33,10 +33,6 @@ class ContactPageController extends GetxController {
     super.onInit();
   }
 
-  void sendShares() async {
-    Get.snackbar("Todo", "");
-  }
-
   Future<void> fetchContacts() async {
     var keys = contactBox.getKeys();
     for (String key in keys) {

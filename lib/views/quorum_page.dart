@@ -8,12 +8,14 @@ import 'package:nygma/controllers/contact_page_controller.dart';
 import '../components/buttons/gradient_button.dart';
 import '../components/labeled_text_form_field.dart';
 import '../constants/colors.dart';
+import '../controllers/nostr.dart';
 import '../controllers/recover_page_controller.dart';
 
 class QuorumPage extends StatelessWidget {
   QuorumPage({super.key});
 
   final ContactPageController controller = Get.put(ContactPageController());
+  final NostrControlller nostrControlller = Get.put(NostrControlller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +115,7 @@ class QuorumPage extends StatelessWidget {
                 height: 60,
                 child: GradientButton(
                   onPressed: () {
-                    controller.sendShares();
+                    nostrControlller.sendShares();
                   },
                   child: const Text(
                     'Send it',

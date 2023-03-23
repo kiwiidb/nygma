@@ -21,12 +21,12 @@ class NostrControlller extends GetxController {
   static const _chars =
       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   static final Random _rnd = Random();
+  var relayList = <WebSocket>[];
   static const defaultRelays = [
     "wss://relay.damus.io",
     "wss://eden.nostr.land",
     "wss://nostr.fmt.wiz.biz",
     "wss://nostr.zebedee.cloud",
-    "wss://brb.io"
   ];
 
   @override
@@ -34,6 +34,7 @@ class NostrControlller extends GetxController {
     for (String relay in defaultRelays) {
       try {
         WebSocket ws = await WebSocket.connect(relay);
+        relayList.add(ws);
         startListenLoop(ws);
         await Future.delayed(const Duration(seconds: 1));
         fetchNostrFollows(ws, authController.pubkey.value);
@@ -76,6 +77,24 @@ class NostrControlller extends GetxController {
     // Listen for events from the WebSocket server
   }
 
+  void sendDM(String plainText, String recipient) async {
+    var event = Event.partial();
+    event.kind = 4;
+    event.createdAt = currentUnixTimestampSeconds();
+    event.pubkey = authController.keychain.public;
+    var recipientTags = ["p", recipient];
+    event.tags = <List<String>>[recipientTags];
+    var encryptedPayload = await nip04Encrypt(
+        plainText, recipient, authController.keychain.private);
+    event.content = encryptedPayload;
+    event.id = event.getEventId();
+    event.sig = event.getSignature(authController.keychain.private);
+    for (WebSocket relay in relayList) {
+      relay.add(event.serialize());
+    }
+    Get.snackbar("Sent message", "recipient $recipient");
+  }
+
   void startListenLoop(WebSocket ws) {
     ws.listen((event) {
       var parsedMsg = Message.deserialize(event).message;
@@ -109,6 +128,13 @@ class NostrControlller extends GetxController {
         }
       }
     });
+  }
+
+  void sendShares() async {
+    for (nostr_models.Profile contact
+        in contactPageController.selectedContacts.values) {
+      sendDM("test", contact.pubkey!);
+    }
   }
 
   void fetchProfile(WebSocket ws, String pubkey) async {
