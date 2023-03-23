@@ -7,6 +7,7 @@ import 'package:cryptography/cryptography.dart';
 import 'package:get/get.dart';
 import 'package:nygma/controllers/auth_controller.dart';
 import 'package:nygma/controllers/contact_page_controller.dart';
+import 'package:nygma/controllers/shamir_controller.dart';
 import 'package:nygma/models/nostr_profile.dart' as nostr_models;
 import 'package:kepler/kepler.dart';
 import 'package:nostr/nostr.dart';
@@ -15,6 +16,7 @@ import 'package:pointycastle/ecc/curves/secp256k1.dart';
 
 class NostrControlller extends GetxController {
   final AuthController authController = Get.put(AuthController());
+  final ShamirController shamirController = Get.put(ShamirController());
   var loading = true.obs;
   ContactPageController contactPageController =
       Get.put(ContactPageController());
@@ -109,6 +111,17 @@ class NostrControlller extends GetxController {
         }
       }
     });
+  }
+
+  void sendShares() async {
+    var result = shamirController.calculateShares(
+        contactPageController.quorum.value,
+        contactPageController.selectedContacts.length,
+        authController.keychain.private);
+    print(result);
+    for (String share in result) {
+        
+    }
   }
 
   void fetchProfile(WebSocket ws, String pubkey) async {

@@ -4,7 +4,9 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nygma/controllers/auth_controller.dart';
 import 'package:nygma/controllers/nostr.dart';
+import 'package:nygma/controllers/shamir_controller.dart';
 
 import '../models/nostr_profile.dart';
 
@@ -33,10 +35,6 @@ class ContactPageController extends GetxController {
     super.onInit();
   }
 
-  void sendShares() async {
-    Get.snackbar("Todo", "");
-  }
-
   Future<void> fetchContacts() async {
     var keys = contactBox.getKeys();
     for (String key in keys) {
@@ -51,8 +49,8 @@ class ContactPageController extends GetxController {
   }
 
   void toggleSelected(Profile? c) {
-    if(c == null) {
-        return;
+    if (c == null) {
+      return;
     }
     if (selectedContacts.containsKey(c.pubkey)) {
       selectedContacts.remove(c.pubkey);
