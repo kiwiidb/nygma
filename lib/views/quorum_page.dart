@@ -38,20 +38,59 @@ class QuorumPage extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: Expanded(
-                                child: GetX<ContactPageController>(
-                                    builder: (controller) {
-                                  return Text(
-                                    "Recover with ${controller.quorum.value.toString()} shares out of ${controller.selectedContacts.length} total.",
-                                    style: const TextStyle(fontSize: 20),
-                                  );
-                                }),
-                              ),
-                            )
+                              child: GetX<ContactPageController>(
+                                  builder: (controller) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.normal),
+                                          children: [
+                                            TextSpan(text: "Recover with "),
+                                            TextSpan(
+                                                text:
+                                                    "${controller.quorum.value.toString()}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            TextSpan(text: " shares out of "),
+                                            TextSpan(
+                                                text:
+                                                    "${controller.selectedContacts.length}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            TextSpan(text: " total."),
+                                          ]),
+                                    ),
+                                  ],
+                                );
+                              }),
+                            ),
                           ],
                         ),
                       ])),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                SizedBox(
+                  width: 60,
+                  child: GradientButton(
+                    onPressed: () {
+                      if (controller.quorum.value < 3) {
+                        return;
+                      }
+                      controller.quorum.value -= 1;
+                    },
+                    child: const Icon(Icons.remove),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
                 SizedBox(
                   width: 60,
                   child: GradientButton(
@@ -65,21 +104,6 @@ class QuorumPage extends StatelessWidget {
                     child: const Icon(Icons.add),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                SizedBox(
-                  width: 60,
-                  child: GradientButton(
-                    onPressed: () {
-                      if (controller.quorum.value < 3) {
-                        return;
-                      }
-                      controller.quorum.value -= 1;
-                    },
-                    child: const Icon(Icons.remove),
-                  ),
-                )
               ]),
               const SizedBox(
                 height: 60,

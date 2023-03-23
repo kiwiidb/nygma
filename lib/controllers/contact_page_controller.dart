@@ -50,7 +50,10 @@ class ContactPageController extends GetxController {
     return selectedContacts.containsKey(c.pubkey);
   }
 
-  void toggleSelected(Profile c) {
+  void toggleSelected(Profile? c) {
+    if(c == null) {
+        return;
+    }
     if (selectedContacts.containsKey(c.pubkey)) {
       selectedContacts.remove(c.pubkey);
     } else {
