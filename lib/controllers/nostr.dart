@@ -21,9 +21,6 @@ class NostrControlller extends GetxController {
   static const _chars =
       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   static final Random _rnd = Random();
-  static const String walletPubkey =
-      "69effe7b49a6dd5cf525bd0905917a5005ffe480b58eeb8e861418cf3ae760d9";
-  late WebSocket walletRelay;
   static const defaultRelays = [
     "wss://relay.damus.io",
     "wss://eden.nostr.land",
@@ -37,9 +34,6 @@ class NostrControlller extends GetxController {
     for (String relay in defaultRelays) {
       try {
         WebSocket ws = await WebSocket.connect(relay);
-        if (relay == "wss://relay.damus.io") {
-          walletRelay = ws;
-        }
         startListenLoop(ws);
         await Future.delayed(const Duration(seconds: 1));
         fetchNostrFollows(ws, authController.pubkey.value);
@@ -74,7 +68,6 @@ class NostrControlller extends GetxController {
 // Create a subscription message request with one or many filters
     Request requestWithFilter = Request(getRandomString(10), [
       Filter(authors: [pubkey], kinds: [3]),
-      Filter(kinds: [23195, 23196], authors: [walletPubkey])
     ]);
 
     // Send a request message to the WebSocket server
@@ -116,21 +109,6 @@ class NostrControlller extends GetxController {
         }
       }
     });
-  }
-
-  void sendZap(String bolt11) async {
-    var event = Event.partial();
-    event.kind = 23194;
-    event.createdAt = currentUnixTimestampSeconds();
-    event.pubkey = authController.keychain.public;
-    var recipient = ["p", walletPubkey];
-    event.tags = <List<String>>[recipient];
-    var encryptedPayload = await nip04Encrypt(
-        bolt11, walletPubkey, authController.keychain.private);
-    event.content = encryptedPayload;
-    event.id = event.getEventId();
-    event.sig = event.getSignature(authController.keychain.private);
-    walletRelay.add(event.serialize());
   }
 
   void fetchProfile(WebSocket ws, String pubkey) async {
