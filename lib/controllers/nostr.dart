@@ -79,7 +79,7 @@ class NostrControlller extends GetxController {
     // Listen for events from the WebSocket server
   }
 
-  void sendDM(String plainText, String recipient) async {
+  Future<void> sendDM(String plainText, String recipient) async {
     var event = Event.partial();
     event.kind = 4;
     event.createdAt = currentUnixTimestampSeconds();
@@ -94,7 +94,6 @@ class NostrControlller extends GetxController {
     for (WebSocket relay in relayList) {
       relay.add(event.serialize());
     }
-    Get.snackbar("Sent message", "recipient $recipient");
   }
 
   void startListenLoop(WebSocket ws) {
@@ -132,7 +131,10 @@ class NostrControlller extends GetxController {
         authController.keychain.private);
     for (var i = 0; i < result.length; i++) {
       var recipientKey = selection.keys.elementAt(i);
-      sendDM(result[i], recipientKey);
+      await sendDM(contactPageController.dmController.text, recipientKey);
+      await sendDM(result[i], recipientKey);
+      Get.snackbar("Delivered message",
+          "Delivered to ${selection.values.elementAt(i).name}");
     }
   }
 

@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nygma/app_theme.dart';
@@ -9,7 +7,6 @@ import '../components/buttons/gradient_button.dart';
 import '../components/labeled_text_form_field.dart';
 import '../constants/colors.dart';
 import '../controllers/nostr.dart';
-import '../controllers/recover_page_controller.dart';
 
 class QuorumPage extends StatelessWidget {
   QuorumPage({super.key});
@@ -49,25 +46,27 @@ class QuorumPage extends StatelessWidget {
                                     RichText(
                                       textAlign: TextAlign.center,
                                       text: TextSpan(
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.normal),
                                           children: [
-                                            TextSpan(text: "Recover with "),
+                                            const TextSpan(
+                                                text: "Recover with "),
                                             TextSpan(
-                                                text:
-                                                    "${controller.quorum.value.toString()}",
-                                                style: TextStyle(
+                                                text: controller.quorum.value
+                                                    .toString(),
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            TextSpan(text: " shares out of "),
+                                            const TextSpan(
+                                                text: " shares out of "),
                                             TextSpan(
                                                 text:
                                                     "${controller.selectedContacts.length}",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold)),
-                                            TextSpan(text: " total."),
+                                            const TextSpan(text: " total."),
                                           ]),
                                     ),
                                   ],
