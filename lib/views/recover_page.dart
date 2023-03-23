@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nygma/app_theme.dart';
 import 'package:nygma/controllers/auth_controller.dart';
 import 'package:nygma/controllers/shamir_controller.dart';
+import 'package:nygma/views/index_or_login.dart';
 
 import '../components/buttons/gradient_button.dart';
 import '../components/labeled_text_form_field.dart';
@@ -99,10 +100,15 @@ class RecoverPage extends StatelessWidget {
                     width: double.infinity,
                     height: 60,
                     child: GradientButton(
-                      onPressed: () {
-                        var secret = shamirController
-                            .combineShares(controller.getShares());
-                        authController.loginHex(secret);
+                      onPressed: () async {
+                        try {
+                          var secret = shamirController
+                              .combineShares(controller.getShares());
+                          await authController.loginHex(secret);
+                          Get.offAll(IndexOrLogin());
+                        } catch (e) {
+                          Get.snackbar("Something went wrong", e.toString());
+                        }
                       },
                       child: const Text(
                         'Recover',

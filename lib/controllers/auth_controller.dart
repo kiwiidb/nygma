@@ -48,14 +48,14 @@ class AuthController extends GetxController with WidgetsBindingObserver {
     await Clipboard.setData(ClipboardData(text: nsec));
   }
 
-  void loginHex(String privkeyHex) async {
-    await accountStorage.write("identity-privkey-hex", privkeyHex);
+  Future<void> loginHex(String privkeyHex) async {
     keychain = Keychain(privkeyHex);
-    await accountStorage.write("identity-pubkey-hex", keychain.public);
     var npub = bech32.encode(Decoded(
         prefix: "npub",
         words:
             bech32.toWords(Uint8List.fromList(hex.decode(keychain.public)))));
+    await accountStorage.write("identity-pubkey-hex", keychain.public);
+    await accountStorage.write("identity-privkey-hex", privkeyHex);
     await accountStorage.write("identity-pubkey-npub", npub);
     pubkey.value = keychain.public;
     this.npub.value = npub;
