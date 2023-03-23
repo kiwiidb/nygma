@@ -8,15 +8,14 @@ import 'navigation/my_bottom_navigation_bar.dart';
 import 'profile_settings_view.dart';
 
 class IndexPage extends StatelessWidget {
-  const IndexPage({super.key});
+  final WrapperController wrapperController = Get.put(WrapperController());
+  IndexPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(gradient: kBgGradient),
-      child: GetX<WrapperController>(
-        init: WrapperController(),
-        builder: (s) => Scaffold(
+        decoration: const BoxDecoration(gradient: kBgGradient),
+        child: Scaffold(
           extendBody: true,
           appBar: AppBar(
             title: const Text(
@@ -26,9 +25,9 @@ class IndexPage extends StatelessWidget {
           ),
           body: PageView.builder(
             onPageChanged: (page) {
-              s.onItemTapped(page);
+              wrapperController.onItemTapped(page);
             },
-            controller: s.pageController,
+            controller: wrapperController.pageController,
             itemCount: 2,
             itemBuilder: (BuildContext context, int index) {
               return [
@@ -39,8 +38,6 @@ class IndexPage extends StatelessWidget {
           ),
           resizeToAvoidBottomInset: false,
           //bottomNavigationBar: MyBottomNavigationBar(),
-        ),
-      ),
-    );
+        ));
   }
 }

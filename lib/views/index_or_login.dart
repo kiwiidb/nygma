@@ -13,7 +13,7 @@ class IndexOrLogin extends StatelessWidget {
       if (controller.pubkey.value == "") {
         return LoginPage();
       }
-      return const IndexPage();
+      return IndexPage();
     });
   }
 }

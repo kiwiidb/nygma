@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nygma/constants/colors.dart';
 import 'package:nygma/controllers/nostr.dart';
+import 'package:nygma/views/quorum_page.dart';
 
 import '../components/buttons/gradient_button.dart';
 import '../components/cards/app_card.dart';
@@ -53,7 +54,12 @@ class ContactOverView extends StatelessWidget {
                     height: 40,
                     child: GradientButton(
                       onPressed: () {
-                        Get.offAll(IndexOrLogin());
+                        if (controller.selectedContacts.length < 2) {
+                          Get.snackbar("You need at least 2 shares",
+                              "We suggest selecting a minimum of 4 contacts.");
+                          return;
+                        }
+                        Get.to(QuorumPage());
                       },
                       child: const Text(
                         'Backup',

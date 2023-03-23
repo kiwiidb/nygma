@@ -12,6 +12,7 @@ class ContactPageController extends GetxController {
   var contacts = <String, Profile>{}.obs;
   var shownContacts = <String, Profile>{}.obs;
   var selectedContacts = <String, Profile>{}.obs;
+  var quorum = 2.obs;
   GetStorage contactBox = GetStorage('contacts');
   final TextEditingController searchLNAddressController =
       TextEditingController();
@@ -30,6 +31,10 @@ class ContactPageController extends GetxController {
     );
     await fetchContacts();
     super.onInit();
+  }
+
+  void sendShares() async {
+    Get.snackbar("Todo", "");
   }
 
   Future<void> fetchContacts() async {
