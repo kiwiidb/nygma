@@ -9,7 +9,6 @@ import 'package:nygma/controllers/nostr.dart';
 import '../models/nostr_profile.dart';
 
 class ContactPageController extends GetxController {
-  var currentTabNumber = 0.obs;
   var contacts = <String, Profile>{}.obs;
   var shownContacts = <String, Profile>{}.obs;
   GetStorage contactBox = GetStorage('contacts');

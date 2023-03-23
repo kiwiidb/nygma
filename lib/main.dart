@@ -6,6 +6,7 @@ import 'package:nygma/views/auth/login.dart';
 import 'package:nygma/views/index_page.dart';
 
 import 'views/index_or_login.dart';
+import 'views/login_choice.dart';
 
 void main() async {
   await GetStorage.init('contacts');
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme().theme,
-      home: IndexOrLogin(),
+      home: LoginChoicePage(),
     );
   }
 }
