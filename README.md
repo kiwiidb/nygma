@@ -1,18 +1,28 @@
 # Nygma
 
-**USE AT YOUR OWN RISK**
-**HIGHLY RECKLESS**
-A new Flutter project.
+## Introduction
+
+This iOS/Android app will allow you to make a distributed and redundant backup of your nostr private key.
+
+## How it works
+
+### Backup
+
+* Enter your nostr private key (nsec...), the app fetches your nostr contacts. 
+* Choose as many contacts as you want (mininum of 2). For example: select 7 contacts.
+* Click backup, now your private key is split in 7 pieces (using Shamir's Secret Sharing)
+* On the next page, you must indicate how many of the pieces are needed to reconstruct your full private key. For example: 3.
+* The app sends an encrypted DM to your 7 nostr contacts, each receive a piece of your private key
+
+### Recovery
+
+* Ask your 7 contacts for the piece they received.
+* Tell the app how many pieces you received from your contacts, for example 4. If you have less than the minimum you indicated during backup, the recovery will fail.
+* Enter the pieces (for example: 4)
+* The private key is recontsructed, the app logs you in with the private key and shows your list of contacts.
+* Swipe right to see you profile, where you have the ability to copy your private key.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Download the latest apk from the github Releases page and install on your Android device!
+iOS version is coming soon (tm)
