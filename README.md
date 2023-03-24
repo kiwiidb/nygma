@@ -1,5 +1,7 @@
 # Nygma
-![alt text](https://imagedelivery.net/wyrwp3c-j0gDDUWgnE7lig/e8eaf0cd-09aa-4860-a767-480f984b4d00/public)
+<p align="right">
+  <img src="https://imagedelivery.net/wyrwp3c-j0gDDUWgnE7lig/e8eaf0cd-09aa-4860-a767-480f984b4d00/public" width="250" alt="accessibility text">
+</p>
 
 **Use at your own risk**
 [Demo](https://www.loom.com/share/4b8aafeb6616429ca943af7b3b9ccd4c)
