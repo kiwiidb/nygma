@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nygma/views/index_or_login.dart';
 
 import '../../components/buttons/gradient_button.dart';
 import '../../components/labeled_text_form_field.dart';
@@ -42,6 +43,7 @@ class LoginPage extends StatelessWidget {
                             onPressed: () {
                               authController.loginNsec(
                                   authController.privkeyController.text);
+                              Get.offAll(IndexOrLogin());
                             },
                             text: "continue".tr,
                           ),
