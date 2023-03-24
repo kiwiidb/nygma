@@ -39,17 +39,6 @@ class QuorumPage extends StatelessWidget {
                               padding: const EdgeInsets.all(12.0),
                               child: GetX<ContactPageController>(
                                   builder: (controller) {
-                                var widgets = <Widget>[];
-                                controller.selectedContacts
-                                    .forEach(((key, value) {
-                                  widgets.add(ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: Image.network(
-                                      value.picture,
-                                      width: 50,
-                                    ),
-                                  ));
-                                }));
                                 return Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -120,8 +109,30 @@ class QuorumPage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Row(
-                children: [],
+              GetX<ContactPageController>(builder: (controller) {
+                var widgets = <Widget>[];
+                controller.selectedContacts.forEach(((key, value) {
+                  var stack = <Widget>[
+                    Image.network(
+                      value.picture,
+                      width: 50,
+                    ),
+                  ];
+                  widgets.add(Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Stack(children: stack),
+                    ),
+                  ));
+                }));
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: widgets,
+                );
+              }),
+              const SizedBox(
+                height: 30,
               ),
               SizedBox(
                 width: 350,

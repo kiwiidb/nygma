@@ -11,13 +11,14 @@ import 'package:nygma/controllers/shamir_controller.dart';
 import 'package:nygma/models/nostr_profile.dart' as nostr_models;
 import 'package:kepler/kepler.dart';
 import 'package:nostr/nostr.dart';
+import 'package:nygma/views/index_or_login.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 
 class NostrControlller extends GetxController {
   final AuthController authController = Get.put(AuthController());
   final ShamirController shamirController = Get.put(ShamirController());
-  var loading = true.obs;
+  var loading = false.obs;
   ContactPageController contactPageController =
       Get.put(ContactPageController());
   static const _chars =
@@ -125,6 +126,7 @@ class NostrControlller extends GetxController {
 
   void sendShares() async {
     var selection = contactPageController.selectedContacts;
+    loading.value = true;
     var result = shamirController.calculateShares(
         contactPageController.quorum.value,
         selection.length,
@@ -133,9 +135,10 @@ class NostrControlller extends GetxController {
       var recipientKey = selection.keys.elementAt(i);
       await sendDM(contactPageController.dmController.text, recipientKey);
       await sendDM(result[i], recipientKey);
-      Get.snackbar("Delivered message",
-          "Delivered to ${selection.values.elementAt(i).name}");
+      selection.values.elementAt(i).sendSucces = true;
     }
+    Get.snackbar("Success", "Sent shares to ${selection.length} contacts.");
+    Get.offAll(IndexOrLogin());
   }
 
   void fetchProfile(WebSocket ws, String pubkey) async {

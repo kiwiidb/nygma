@@ -120,10 +120,6 @@ class ContactWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget maybeArrow = Container();
-    if (contact.lud16 != null) {
-      maybeArrow = const Icon(Icons.arrow_forward);
-    }
     return AppCard(
       padding: const EdgeInsets.fromLTRB(23.0, 16.0, 23.0, 15.0),
       background: selected ? kAccentColor : kOffGreyColor,

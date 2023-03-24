@@ -5,12 +5,14 @@ class Profile {
   String? about;
   String? nip05;
   String? lud16;
+  bool sendSucces;
 
   Profile(
       {this.name,
       this.picture = "https://robohash.org/kwinten",
       this.pubkey,
       this.about,
+      this.sendSucces = false,
       this.nip05,
       this.lud16});
 
