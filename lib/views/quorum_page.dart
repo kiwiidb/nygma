@@ -116,6 +116,11 @@ class QuorumPage extends StatelessWidget {
                     Image.network(
                       value.picture,
                       width: 50,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.network(
+                        "https://robohash.org/kwinten",
+                        width: 60,
+                      ),
                     ),
                   ];
                   widgets.add(Padding(

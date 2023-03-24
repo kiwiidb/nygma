@@ -83,7 +83,7 @@ class ContactOverView extends StatelessWidget {
                   itemBuilder: (context, i) {
                     if (i == controller.shownContacts.length) {
                       return const SizedBox(
-                        height: 30,
+                        height: 100,
                       );
                     }
                     String key = controller.shownContacts.keys.elementAt(i);
