@@ -1,4 +1,6 @@
 # Nygma
+![alt text](https://imagedelivery.net/wyrwp3c-j0gDDUWgnE7lig/e8eaf0cd-09aa-4860-a767-480f984b4d00/public)
+
 **Use at your own risk**
 [Demo](https://www.loom.com/share/4b8aafeb6616429ca943af7b3b9ccd4c)
 ## Introduction
