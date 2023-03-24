@@ -1,5 +1,6 @@
 # Nygma
-
+**Use at your own risk**
+[Demo](https://www.loom.com/share/4b8aafeb6616429ca943af7b3b9ccd4c)
 ## Introduction
 
 This iOS/Android app will allow you to make a distributed and redundant backup of your nostr private key.
